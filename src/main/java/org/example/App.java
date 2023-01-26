@@ -27,9 +27,7 @@ import java.util.*;
 import java.util.List;
 
 public class App extends ListenerAdapter {
-    //https://jda.wiki/using-jda/interactions/
-    private static final String token = "MTAxMDcxMzk2Nzk5MzI5OTAwNg.G0bDiw.EahFkZ_ce96xu83qpY6eumPH5Pm930oJDTmayE";
-
+    private static String guildId = "";
     private final Emoji korkovik = Emoji.fromFormatted("<:korkovik:1063009366292308008>");
     private final Emoji alex = Emoji.fromFormatted("<:alex:1010892349150335027>");
     private final Emoji ya = Emoji.fromFormatted("<:ya:1010892345564205096>");
@@ -42,7 +40,27 @@ public class App extends ListenerAdapter {
     static boolean betStatus = false;// существует ли текущее пари или нет
     static String userMessageRepeat = "";// айди пользователя, который послдений отправлял сообщение, для проверки на спам
 
+    //https://jda.wiki/using-jda/interactions/
     public static void main(String[] args) throws InterruptedException {
+        StringBuilder token = new StringBuilder();
+        StringBuilder guildId = new StringBuilder();
+
+        try (FileReader reader = new FileReader("D:/Java/Project/Java Project/KorkBot2.0/KorkBotV2/token.properties")) {
+            int c;
+            while ((c = reader.read()) != -1) {
+                token.append((char) c);
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try (FileReader reader = new FileReader("D:/Java/Project/Java Project/KorkBot2.0/KorkBotV2/guildid.properties")) {
+            int c;
+            while ((c = reader.read()) != -1) {
+                guildId.append((char) c);
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
         EnumSet<GatewayIntent> intents = EnumSet.of(
                 GatewayIntent.GUILD_MESSAGES,
@@ -53,9 +71,9 @@ public class App extends ListenerAdapter {
                 GatewayIntent.GUILD_VOICE_STATES
         );
 
-        JDA jda = JDABuilder.createLight(token, intents)
+        JDA jda = JDABuilder.createLight(String.valueOf(token), intents)
                 .addEventListeners(new App())
-                .setActivity(Activity.watching("❤गỰʓℊαŦҿዙ৮₭Θ❤"))
+                .setActivity(Activity.watching("deadinside✓ emo✓ drain✓ epileptic✓ paranoid✓ toxic✓ bipolar✓ depressed✓"))
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -76,8 +94,9 @@ public class App extends ListenerAdapter {
 
         jda.awaitReady();
 
-        Guild guild = jda.getGuildById("507946775655481345");
+        Guild guild = jda.getGuildById(String.valueOf(guildId));
 
+        assert guild != null;
         guild.updateCommands().addCommands(Commands.context(Command.Type.USER, "Количество корковиков")).queue();
         try (FileReader reader = new FileReader("src/main/resources/folder/korkovikFolder.txt")) {
             // читаем посимвольно

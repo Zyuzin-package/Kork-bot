@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="KorkBotV2" />
+        <module name="Kork-bot" />
       </profile>
     </annotationProcessing>
   </component>
