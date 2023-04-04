@@ -27,7 +27,6 @@ import java.util.*;
 import java.util.List;
 
 public class App extends ListenerAdapter {
-    private static String guildId = "";
     private final Emoji korkovik = Emoji.fromFormatted("<:korkovik:1063009366292308008>");
     private final Emoji alex = Emoji.fromFormatted("<:alex:1010892349150335027>");
     private final Emoji ya = Emoji.fromFormatted("<:ya:1010892345564205096>");
